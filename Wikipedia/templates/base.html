@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="/static/main.css"/>
+	<title>TCET wiki</title>
+<head>
+<body>
+<div class="header">
+	<div class="controls">
+		{% if user %}
+			{{user.name}} (<a class="gray-link" href="/logout">logout</a>)
+		{% else %}
+			<a class="gray-link" href="/login">Login</a> ||
+			<a class="gray-link" href="/signup">Sign Up</a>
+		{% endif %}
+	</div>
+	<div class="controls">
+		{% block controls %}
+		{% endblock %}
+	</div>
+    <div class="controls" style="font-size:50px">
+        <a class="gray-link" href="/">Tcet Wiki</a>
+    </div>
+	<div class="clear"></div>
+</div>
+    <hr>
+    <hr>
+	<div id="content">
+		{% block content %}
+		{% endblock %}
+	</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block controls %}
+	{% if user %}
+		<a class="gray-link" href="/_edit{{path}}">Edit</a>
+	{% endif %}
+    |
+	<a class="gray-link" href="{{path}}">View</a>
+{% endblock %}	
+
+{% block content %}
+	<table class="history-table">
+	{% for p,rowstyle in gray_style(posts) %}
+		<tr class="{{rowstyle}}">
+			<td class="date-cell">
+				{{ p.last_modified.strftime("%c") }}
+			</td>
+
+			<td class="content-cell">
+				{{p.content[:100] }}
+				<!-- DISPLAY THE NO OF CHAR IN EACH REVISED POST -->
+			</td>
+
+			<td class="link-cell">
+				<a class="gray-link" href="{{path}}?v={{p.key().id()}}">View</a>
+				<!--CALL THAT PARTICULAR POST FROM THE GOOGLE DATASTORE-->
+			</td>
+
+			{% if user %}  <!--IF USER IS LOGGED IN THEN ONLY EXECUTE-->
+			<td class="link-cell">
+				<a class="gray-link" href="/_edit{{path}}?v={{p.key().id()}}">Edit</a>
+			</td>
+			{% endif %}
+		</tr>
+	{% endfor %}	
+	</table>
+{% endblock %}
